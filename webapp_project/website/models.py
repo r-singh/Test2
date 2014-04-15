@@ -3,13 +3,21 @@ from django.db import models
 class Author(models.Model):
     name = models.CharField(max_length=30)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=50)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Tag(models.Model):
     text = models.CharField(max_length=100)
+    def __unicode__(self):
+        return self.text
 
 
 class Book(models.Model):
@@ -20,8 +28,10 @@ class Book(models.Model):
     genres =  models.ManyToManyField(Genre, related_name="books", blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     authors = models.ManyToManyField(Author, related_name="books", blank=True, null=True)
-    tags = models.ManyToManyField(Tag, related_name="books", blank=True, null=True)
+    tags     = models.ManyToManyField(Tag, related_name="books", blank=True, null=True)
 
+    def __unicode__(self):
+        return self.name
 
 class Asset(models.Model):
     ASSET_TYPES = (
@@ -34,3 +44,6 @@ class Asset(models.Model):
     path =  models.CharField(max_length=400)
     original_file_path =  models.CharField(max_length=400)
     asset_type = models.CharField(choices=ASSET_TYPES, max_length=5)
+
+    def __unicode__(self):
+        return self.name
